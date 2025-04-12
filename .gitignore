@@ -8,8 +8,8 @@
 # credentials and API keys
 *.env
 
-# chroma db files
-chroma_db/*
+# ramalama folders
+RamaLama_*
 
 # misc
 .DS_Store

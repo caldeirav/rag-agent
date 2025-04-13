@@ -1,0 +1,37 @@
+# Save the output of this file and use kubectl create -f to import
+# it into Kubernetes.
+#
+# Created with ramalama-0.7.3
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: myrag-service
+  labels:
+    app: myrag-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myrag-service
+  template:
+    metadata:
+      labels:
+        app: myrag-service
+    spec:
+      containers:
+      - name: myrag-service
+        image: quay.io/ramalama/ramalama:0.7
+        command: ["llama-server"]
+        args: ['--port', '8088', '--model', '/mnt/models/model.file', '--alias', 'quay.io/vcaldeira/rag_model', '--ctx-size', '2048', '--temp', '0.8', '--jinja', '-ngl', '999', '--threads', '5', '--host', '0.0.0.0']
+
+        ports:
+        - containerPort: 8088
+        volumeMounts:
+        - mountPath: /mnt/models
+          subPath: /models
+          name: model
+      volumes:
+      - image:
+          reference: quay.io/vcaldeira/rag_model
+          pullPolicy: IfNotPresent
+        name: model

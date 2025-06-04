@@ -83,7 +83,7 @@ def evaluate_rag_output(question, answer, contexts=None):
     return result
 
 # Define your question
-question = "Provide a historical review of NVIDIA revenue from 2020 until now."
+question = "Provide a historical review of NVIDIA yearly revenue from 2020 until now."
 
 # Run the agent
 agent.visualize()
